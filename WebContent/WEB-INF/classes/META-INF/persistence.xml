@@ -9,8 +9,10 @@
 		<class>com.swe.assignment.dao.StudentDAO</class>
 		
 		<properties>
+			<!--property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://swe645db.cblnigtx0ewz.us-east-1.rds.amazonaws.com:3306/swe645db" /> -->
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://swe645db.cblnigtx0ewz.us-east-1.rds.amazonaws.com:3306/swe645db" />
+				  value="jdbc:mysql://172.17.0.2:3306/swe645db"/>
 			<property name="javax.persistence.jdbc.user"
 				value="swe645group" />
 			<property name="javax.persistence.jdbc.password"
