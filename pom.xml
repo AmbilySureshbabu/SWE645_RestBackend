@@ -65,5 +65,30 @@
 			<artifactId>jersey-media-json-jackson</artifactId>
 			<version>2.30</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-clients</artifactId>
+			<version>2.6.0</version>
+		</dependency>
+
+		<!-- Kafka -->
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka_2.12</artifactId>
+			<version>2.6.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>connect-json</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.kcache</groupId>
+			<artifactId>kcache</artifactId>
+			<version>3.3.6</version>
+		</dependency>
+
 	</dependencies>
 </project>

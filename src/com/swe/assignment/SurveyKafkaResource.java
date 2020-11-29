@@ -3,7 +3,6 @@ package com.swe.assignment;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -13,12 +12,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.swe.assignment.bean.StudentBean;
-import com.swe.assignment.dao.impl.StudentDAOImpl;
+import com.swe.assignment.dao.impl.StudentKafkaImpl;
 
-@Path("/rest/survey")
-public class SurveyResource {
+@Path("/survey")
+public class SurveyKafkaResource {
 
-	public SurveyResource() {
+
+	public SurveyKafkaResource() {
 
 	}
 
@@ -26,25 +26,12 @@ public class SurveyResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllStudentsSurveyForm() {
 		try {
-			List<Object> obj = StudentDAOImpl.getInstance().readStudentIds();
+			List<String> obj = StudentKafkaImpl.getInstance().readStudentIds();
 			return Response.status(200).entity(obj).build();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		return Response.status(500).build();
-	}
-
-	@DELETE
-	@Path("{studentId}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteStudentSurveyForm(@PathParam("studentId") String id) {
-		try {
-			StudentDAOImpl.getInstance().deleteStudent(Integer.parseInt(id));
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return Response.status(500).build();
-		}
-		return Response.status(200).build();
 	}
 
 	@GET
@@ -59,7 +46,7 @@ public class SurveyResource {
 				// get the database instance object and read the student based on the
 				// id(converting to int as we get it as string and in database we store as
 				// integer)
-				studentBean = StudentDAOImpl.getInstance().readStudent(Integer.parseInt(id));
+				studentBean = StudentKafkaImpl.getInstance().readStudent(Integer.parseInt(id));
 				return Response.status(200).entity(studentBean).build();
 			}
 		} catch (Exception e) {
@@ -75,10 +62,8 @@ public class SurveyResource {
 	public Response createSurveyRecord(StudentBean studentBean) {
 		try {
 
-			// save the student to the database
-			StudentDAOImpl impl = StudentDAOImpl.getInstance();
-			// insert the student into the database, if any reason student insert fails it
-			// will throw and exception
+			StudentKafkaImpl impl = StudentKafkaImpl.getInstance();
+			// insert the student into the kafka, if any reason student insert fails it
 			impl.saveToDatabase(studentBean);
 		} catch (Exception e) {
 			// if the student insertion fails send to the home page with reason for the
@@ -88,5 +73,6 @@ public class SurveyResource {
 		}
 		return Response.status(200).entity(studentBean).build();
 	}
+
 
 }
